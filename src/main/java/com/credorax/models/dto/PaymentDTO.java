@@ -1,8 +1,11 @@
 package com.credorax.models.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.math.BigDecimal;
 import java.util.Objects;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PaymentDTO {
 
     private String invoice;

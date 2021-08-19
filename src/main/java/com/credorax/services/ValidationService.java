@@ -1,6 +1,8 @@
 package com.credorax.services;
 
+import com.credorax.exceptions.PaymentInvoiceAbsenceException;
 import com.credorax.models.dto.PaymentDTO;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -139,15 +141,23 @@ public class ValidationService {
     }
 
     private boolean validateDate(String expiry) {
-        LocalDate cardDate = LocalDate.parse("01" + expiry, DateTimeFormatter.ofPattern("ddMMyy"));
-        cardDate = cardDate.withDayOfMonth(cardDate.getMonth().length(cardDate.isLeapYear()));
-        Date currentDate = new Date();
-
-        return LocalDate.now().isBefore(cardDate);
+        try {
+            LocalDate cardDate = LocalDate.parse("01" + expiry, DateTimeFormatter.ofPattern("ddMMyy"));
+            cardDate = cardDate.withDayOfMonth(cardDate.getMonth().length(cardDate.isLeapYear()));
+            return LocalDate.now().isBefore(cardDate);
+        } catch (Exception ex) {
+            return false;
+        }
     }
 
-    public Optional<List<?>> validateInvoice(String invoice) {
-        return Optional.empty();
+    public Optional<Map<String, String>> validateInvoice(String invoice) {
+        Map<String, String> result = new LinkedHashMap<>();
+        boolean hasErrors = false;
+        if (Strings.isBlank(invoice)) {
+            hasErrors = true;
+            result.put("invoice", "Request parameter 'invoice' is missing or empty");
+        }
+        return hasErrors ? Optional.of(result) : Optional.empty();
     }
 
     private boolean validateCardNumber(String cardNumber) {

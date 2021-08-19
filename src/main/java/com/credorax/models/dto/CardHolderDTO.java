@@ -1,7 +1,10 @@
 package com.credorax.models.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.Objects;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class CardHolderDTO {
 
     private String name;

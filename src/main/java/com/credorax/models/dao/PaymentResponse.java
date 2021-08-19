@@ -1,11 +1,12 @@
 package com.credorax.models.dao;
 
-import java.util.ArrayList;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PaymentResponse {
 
     private Boolean approved;
@@ -46,6 +47,11 @@ public class PaymentResponse {
 
         public PaymentResponseBuilder approved() {
             this.approved = true;
+            return this;
+        }
+
+        public PaymentResponseBuilder notApproved() {
+            this.approved = false;
             return this;
         }
 
