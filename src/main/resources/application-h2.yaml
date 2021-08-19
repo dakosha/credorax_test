@@ -1,0 +1,12 @@
+credorax:
+  storage:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:file:./data/credorax;CACHE_SIZE=131072;AUTO_RECONNECT=TRUE;PAGE_SIZE=4096
+    username: sa
+    password:
+    hikari:
+      maximum-pool-size: 16
+      connection-timeout: 5000
+      maxLifetime: 3600000
+      auto-commit: true
+      poolName: h2
