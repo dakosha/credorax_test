@@ -60,8 +60,18 @@ public class AuditEvent {
         this.transactionId = transactionId;
     }
 
+    @Override
+    public String toString() {
+        return "AuditEvent{" +
+                "eventDate=" + eventDate +
+                ", approved=" + approved +
+                ", jsonBody='" + jsonBody + '\'' +
+                ", transactionId='" + transactionId + '\'' +
+                '}';
+    }
+
     public static class Builder {
-        private Date eventDate = new Date();
+        private final Date eventDate = new Date();
         private Boolean approved;
         private String jsonBody;
         private String transactionId;
@@ -95,15 +105,5 @@ public class AuditEvent {
             return event;
         }
 
-    }
-
-    @Override
-    public String toString() {
-        return "AuditEvent{" +
-                "eventDate=" + eventDate +
-                ", approved=" + approved +
-                ", jsonBody='" + jsonBody + '\'' +
-                ", transactionId='" + transactionId + '\'' +
-                '}';
     }
 }

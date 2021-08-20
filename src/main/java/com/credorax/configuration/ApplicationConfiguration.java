@@ -1,7 +1,7 @@
 package com.credorax.configuration;
 
-import com.credorax.services.implementations.DefaultEncryptionService;
-import com.credorax.services.implementations.FileAuditService;
+import com.credorax.services.implementations.audit.FileAuditService;
+import com.credorax.services.implementations.encryption.DefaultEncryptionService;
 import com.credorax.services.interfaces.AuditService;
 import com.credorax.services.interfaces.EncryptionService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.credorax.services.implementations;
+package com.credorax.services.implementations.encryption;
 
 import com.credorax.models.dao.Payment;
 import com.credorax.services.interfaces.EncryptionService;

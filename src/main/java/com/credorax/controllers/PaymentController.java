@@ -24,9 +24,9 @@ import java.util.UUID;
 @RequestMapping("payments")
 public class PaymentController {
 
-    private ValidationService validationService;
-    private PaymentService paymentService;
-    private ConverterService converterService;
+    private final ValidationService validationService;
+    private final PaymentService paymentService;
+    private final ConverterService converterService;
 
     @Autowired
     public PaymentController(ValidationService validationService, PaymentService paymentService, ConverterService converterService) {

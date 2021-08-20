@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ConverterService {
 
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
     @Autowired
     public ConverterService(ObjectMapper objectMapper) {

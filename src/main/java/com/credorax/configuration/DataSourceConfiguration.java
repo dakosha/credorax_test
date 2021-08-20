@@ -38,7 +38,7 @@ public class DataSourceConfiguration {
         LocalContainerEntityManagerFactoryBean em
                 = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(personStorageDataSource);
-        em.setPackagesToScan(new String[] { "com.credorax" });
+        em.setPackagesToScan("com.credorax");
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);

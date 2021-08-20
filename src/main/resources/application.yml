@@ -9,8 +9,10 @@ spring:
 credorax:
   services:
     auditService:
-      name: fileAuditService
-#      name: databaseAuditService
+#      name: consoleAuditService
+#      name: fileAuditService
+#      file: ./audit/audit.log
+      name: databaseAuditService
     encryptionService:
       name: base64EncryptionService
 #      name: defaultEncryptionService

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 public interface PaymentRepository extends CrudRepository<Payment, String> {
 
     Payment findPaymentByInvoice(String invoice);
+
     Boolean existsByInvoice(String invoice);
 
 }

@@ -6,4 +6,11 @@ public class CredoraxException extends RuntimeException {
         super(ex);
     }
 
+    public CredoraxException(String message) {
+        super(message);
+    }
+
+    public CredoraxException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }
