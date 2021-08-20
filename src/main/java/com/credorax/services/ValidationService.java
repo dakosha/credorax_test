@@ -72,37 +72,37 @@ public class ValidationService {
             //Card CVV
             if (paymentRequest.getCard().getCvv() == null) {
                 hasErrors = true;
-                errors.put("card", "CVV should be provided");
+                errors.put("card.cvv", "CVV should be provided");
             }
             if (paymentRequest.getCard().getCvv() != null && paymentRequest.getCard().getCvv().length() <= 0) {
                 hasErrors = true;
-                errors.put("card", "CVV should be a non-empty value");
+                errors.put("card.cvv", "CVV should be a non-empty value");
             }
             //Card number
             if (paymentRequest.getCard().getPan() == null) {
                 hasErrors = true;
-                errors.put("card", "Card number should be provided");
+                errors.put("card.pan", "Card number should be provided");
             }
             if (paymentRequest.getCard().getPan() != null && paymentRequest.getCard().getPan().length() <= 0) {
                 hasErrors = true;
-                errors.put("card", "Card number should be a non-empty value");
+                errors.put("card.pan", "Card number should be a non-empty value");
             }
             if (paymentRequest.getCard().getPan() != null && !validateCardNumber(paymentRequest.getCard().getPan())) {
                 hasErrors = true;
-                errors.put("card", "Card number should be a valid number (visa, mastercard, american express, etc...");
+                errors.put("card.pan", "Card number should be a valid number (visa, mastercard, american express, etc...");
             }
             //Card Expiry
             if (paymentRequest.getCard().getExpiry() == null) {
                 hasErrors = true;
-                errors.put("card", "Expiry date should be provided");
+                errors.put("card.expiry", "Expiry date should be provided");
             }
             if (paymentRequest.getCard().getExpiry() != null && paymentRequest.getCard().getExpiry().length() != 4) {
                 hasErrors = true;
-                errors.put("card", "Expiry date should be a 4 digits value (example: '0425', April 2025)");
+                errors.put("card.expiry", "Expiry date should be a 4 digits value (example: '0425', April 2025)");
             }
             if (paymentRequest.getCard().getExpiry() != null && paymentRequest.getCard().getExpiry().length() == 4 && !validateDate(paymentRequest.getCard().getExpiry())) {
                 hasErrors = true;
-                errors.put("card", "The card is Expired");
+                errors.put("card.expiry", "The card is Expired");
             }
         }
 
@@ -115,25 +115,25 @@ public class ValidationService {
             //Card Holder
             if (paymentRequest.getCardHolder().getEmail() == null) {
                 hasErrors = true;
-                errors.put("cardHolder", "Email should be provided");
+                errors.put("cardHolder.email", "Email should be provided");
             }
             if (paymentRequest.getCardHolder().getEmail() != null && paymentRequest.getCardHolder().getEmail().length() <= 0) {
                 hasErrors = true;
-                errors.put("cardHolder", "Email should be a non-empty value");
+                errors.put("cardHolder.email", "Email should be a non-empty value");
             }
             if (paymentRequest.getCardHolder().getEmail() != null && !validateEmail(paymentRequest.getCardHolder().getEmail())) {
                 hasErrors = true;
-                errors.put("cardHolder", "Email should be a valid Email address");
+                errors.put("cardHolder.email", "Email should be a valid Email address");
             }
 
             //Card Holder
             if (paymentRequest.getCardHolder().getName() == null) {
                 hasErrors = true;
-                errors.put("cardHolder", "Name should be provided");
+                errors.put("cardHolder.name", "Name should be provided");
             }
             if (paymentRequest.getCardHolder().getName() != null && paymentRequest.getCardHolder().getName().length() <= 0) {
                 hasErrors = true;
-                errors.put("cardHolder", "Name should be a non-empty value");
+                errors.put("cardHolder.name", "Name should be a non-empty value");
             }
         }
 

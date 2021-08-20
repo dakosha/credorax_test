@@ -1,10 +1,13 @@
 package com.credorax.services;
 
 import com.credorax.exceptions.CredoraxException;
+import com.credorax.models.dao.AuditEvent;
 import com.credorax.models.dao.Payment;
 import com.credorax.models.dao.PaymentResponse;
 import com.credorax.repositories.PaymentRepository;
+import com.credorax.services.interfaces.AuditService;
 import com.credorax.services.interfaces.EncryptionService;
+import com.credorax.utils.ThreadLocalVariables;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,18 +17,37 @@ import java.util.UUID;
 @Service
 public class PaymentService {
 
-    @Autowired
-    private PaymentRepository paymentRepository;
+    private final PaymentRepository paymentRepository;
+    private final EncryptionService encryptionService;
+    private final AuditService auditService;
 
     @Autowired
-    private EncryptionService encryptionService;
+    public PaymentService(PaymentRepository paymentRepository,
+                          EncryptionService encryptionService,
+                          AuditService auditService) {
+        this.paymentRepository = paymentRepository;
+        this.encryptionService = encryptionService;
+        this.auditService = auditService;
+    }
 
     public PaymentResponse processPayment(Payment payment) {
         try {
             if (!paymentRepository.existsByInvoice(payment.getInvoice())) {
                 payment.setId(UUID.randomUUID().toString());
+
+                //Encrypting data
                 payment = encryptionService.encrypt(payment);
+
+                //Saving data into the Database
                 paymentRepository.save(payment);
+
+                //Making an Audit log record. (file based or database based)
+                auditService.auditEvent(new AuditEvent.Builder()
+                        .approved()
+                        .withJsonBody(encryptionService.decrypt(payment).toString())
+                        .transactionId(ThreadLocalVariables.getTransactionId())
+                        .build());
+
                 return new PaymentResponse.PaymentResponseBuilder()
                         .approved()
                         .build();

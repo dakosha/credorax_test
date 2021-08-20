@@ -12,8 +12,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class ConverterService {
 
-    @Autowired
     private ObjectMapper objectMapper;
+
+    @Autowired
+    public ConverterService(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
 
     public Payment convertPayment(PaymentDTO paymentDTO) {
         Payment payment = new Payment();

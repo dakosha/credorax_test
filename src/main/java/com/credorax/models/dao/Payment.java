@@ -114,4 +114,17 @@ public class Payment {
     public int hashCode() {
         return Objects.hash(invoice, amount, currency, name, email, pan, expiry);
     }
+
+    @Override
+    public String toString() {
+        return "Payment{" +
+                "invoice='" + invoice + '\'' +
+                ", amount=" + amount +
+                ", currency='" + currency + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", pan='" + pan + '\'' +
+                ", expiry='" + expiry + '\'' +
+                '}';
+    }
 }

@@ -6,6 +6,7 @@ import com.credorax.models.dto.PaymentDTO;
 import com.credorax.services.ConverterService;
 import com.credorax.services.PaymentService;
 import com.credorax.services.ValidationService;
+import com.credorax.utils.ThreadLocalVariables;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,22 +18,27 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("payments")
 public class PaymentController {
 
-    @Autowired
     private ValidationService validationService;
-
-    @Autowired
     private PaymentService paymentService;
-
-    @Autowired
     private ConverterService converterService;
 
+    @Autowired
+    public PaymentController(ValidationService validationService, PaymentService paymentService, ConverterService converterService) {
+        this.validationService = validationService;
+        this.paymentService = paymentService;
+        this.converterService = converterService;
+    }
+
     @PostMapping
-    public ResponseEntity<Object> processPayment(@RequestBody PaymentDTO paymentDTO) {
+    public ResponseEntity<Object> processPayment(@RequestBody PaymentDTO paymentDTO,
+                                                 @RequestParam(value = "transactionId", required = false) String transactionId) {
+        ThreadLocalVariables.setTransactionId(transactionId == null ? UUID.randomUUID().toString() : transactionId);
         Optional<Map<String, String>> validationErrors = validationService.validatePaymentRequest(paymentDTO);
         if (validationErrors.isEmpty()) {
             Payment payment = converterService.convertPayment(paymentDTO);

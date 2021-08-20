@@ -1,6 +1,8 @@
 package com.credorax.configuration;
 
 import com.credorax.services.implementations.DefaultEncryptionService;
+import com.credorax.services.implementations.FileAuditService;
+import com.credorax.services.interfaces.AuditService;
 import com.credorax.services.interfaces.EncryptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,6 +25,18 @@ public class ApplicationConfiguration {
         } catch (Exception ex) {
             ex.printStackTrace();
             return new DefaultEncryptionService();
+        }
+    }
+
+    @Bean
+    public AuditService auditService(
+            @Value("${credorax.services.auditService.name}") String encryptionServiceName) {
+        try {
+            Object bean = applicationContext.getBean(encryptionServiceName);
+            return (AuditService) bean;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new FileAuditService();
         }
     }
 

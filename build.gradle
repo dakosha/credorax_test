@@ -1,11 +1,13 @@
 plugins {
     id 'java'
+    id 'groovy'
     id 'idea'
     id 'org.springframework.boot' version '2.5.4' apply false
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 }
 
 apply plugin: 'org.springframework.boot'
+apply from: 'jacoco.gradle'
 
 group 'com.credorax'
 version '1.0-SNAPSHOT'
@@ -46,6 +48,10 @@ dependencies {
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+
+    implementation 'org.codehaus.groovy:groovy-all:3.0.8'
+    implementation 'org.spockframework:spock-core:2.0-groovy-3.0'
+    implementation 'org.spockframework:spock-spring:2.0-groovy-3.0'
 }
 
 test {
